@@ -1,4 +1,4 @@
-#include "MC.h"
+#include "optimization.h"
 
 //https://stackoverflow.com/questions/9600801/evenly-distributing-n-points-on-a-sphere
 
