@@ -1,12 +1,12 @@
 #include <iostream>
 #include <time.h>
-#include "MC.h"
+#include "optimization.h"
 #include "dumping.h"
 
 int main()
 {
-    //const char * inter_file = "data/Nonsynchro_pvalue_nonzero_FDR_0.01_freq_enrich.txt";
-    const char * inter_file = "../data/kc167_all_freq.txt";
+    const char * inter_file = "data/Nonsynchro_pvalue_nonzero_FDR_0.01_freq_enrich.txt";
+    //const char * inter_file = "../data/kc167_all_freq.txt";
     //const char * inter_file = "../data/Nonsynchro_res_5k_freq_enrich.txt";
     const char *chrom = "chr3L";
     const char *chrmfile = "../data/dm3_chrm_sizes";
@@ -17,12 +17,12 @@ int main()
     unsigned n_samples = 100;
     unsigned n_sphere = 50;
     double diam=getDiam(resolution,fiber_density);
-    double ki_dist = 70;
+    double ki_dist = 80;
     unsigned max_trials = 100;
     unsigned n_iter= 100;
 
-    const char *out_folder = "../output_spec_naive/kc167/chr3L_5600_5900/txt";
-    const char *job_prefix = "kc167";
+    const char *out_folder = "../output_spec/S2R/chr3L_5600_5900/txt";
+    const char *job_prefix = "S2R";
     //const char *time_file = "../time/time_100_spec_naive.txt";
 
     unsigned region_size=end-start;
