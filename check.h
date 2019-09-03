@@ -1,5 +1,5 @@
-#ifndef MC_CHECK_H
-#define MC_CHECK_H
+#ifndef SBIF_CHECK_H
+#define SBIF_CHECK_H
 
 #include <cmath>
 #include <vector>
@@ -41,4 +41,4 @@ bool checkSphere(Node &node1, const double radius);
 bool checkClash(my_chain &chain, Node &node1, unsigned idx, vectori &sim_ligc,
               const double clash_dist, const double ki_dist, unsigned head, unsigned tail);
 
-#endif //MC_CHECK_H
+#endif //SBIF_CHECK_H
