@@ -72,7 +72,7 @@ vectord2d readInterFourCols(const char * inter_file, vectord2d &weights, const c
             bin2 = bin2 / resolution - bin_start;
             if ((bin1<0)||(bin2<0)) continue;
             if ((bin1>=bin_size)||(bin2>=bin_size)) continue;
-            if (weight<1) continue;
+            if (weight<0) continue;
 	    inter[bin1][bin2] = freq;
             inter[bin2][bin1] = freq;
             weights[bin1][bin2] = weight;
