@@ -6,7 +6,7 @@ Compile: g++ --std=c++11 -fopenmp check.cpp loading.cpp dumping.cpp optimization
 
 Usage: sbif -i inter_file -o out_folder -c chrom -f chrom_sizes -s start -e end -k ki_dist -n num_samples
 
-Parameters: shortterm | longterm: description
+Parameters: shortterm | longterm: description  \\
     i | inter_file:  Hi-C file with 4 columes, chrm|start|end|weight 
     c | chrom: chromosome
     f | chrmfile: file of chromosome sizes
