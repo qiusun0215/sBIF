@@ -50,7 +50,7 @@ int main(int argc, char * argv[])
     
 
     result.clear();
-    cout << "Input is:" << tmpPara << endl;
+    //cout << "Input is:" << tmpPara << endl;
     std::string errPos;
     int iRet = pa.Parse(tmpPara,result, errPos);
     if(0>iRet)
@@ -68,7 +68,7 @@ int main(int argc, char * argv[])
         unsigned resolution = 2000;
         double fiber_density = 0.2368;
         unsigned n_samples = 50000;
-        unsigned n_runs = 500;
+        unsigned n_samples_per_run = 100;
         unsigned n_sphere = 50;
         unsigned ki_dist = 80;
         unsigned max_trials= 100;
@@ -121,7 +121,7 @@ int main(int argc, char * argv[])
             {
                 std::stringstream item;
                 item<<it->second[0];
-                item>>n_runs;
+                item>>n_samples_per_run;
             }
             if (it->first.compare("m")==0)
             {
@@ -157,6 +157,25 @@ int main(int argc, char * argv[])
                 job_prefix=it->second[0];
         }
         double diam=getDiam(resolution,fiber_density);
+        unsigned n_runs=n_samples/n_samples_per_run;
+        cout<< "Parameters: "<<endl;
+        cout<< "interaction file :"<< inter_file << endl;
+        cout<< "chromosome :"<< chrom << endl;
+        cout<< "chrom_sizes_file :"<< chrmfile << endl;
+        cout<< "start position:"<< start << endl;
+        cout<< "end position :"<< end << endl;
+        cout<< "out_folder :"<< out_folder << endl;
+        cout<< "resolution :"<< resolution << endl;
+        cout<< "fiber density :"<< fiber_density << endl;
+        cout<< "number of samples :"<< n_samples << endl;
+        cout<< "number of samples per run :"<< n_samples_per_run << endl;
+        cout<< "number of sphere points :"<< n_sphere << endl;
+        cout<< "knockin distance :"<< ki_dist << endl;
+        cout<< "maximum trials :"<< max_trials << endl;
+        cout<< "number of iteractions :"<< n_iter << endl;
+        cout<< "job prefix :"<< job_prefix << endl;
+        cout<< "number of threads :"<< threads << endl;
+        cout<<"Bead diameter: "<<diam<<endl;
         unsigned region_size=end-start;
         unsigned n_nodes= (region_size % resolution == 0) ? (region_size / resolution) : (region_size / resolution + 1);
         vectord2d weights(n_nodes,vectord(n_nodes));
@@ -166,8 +185,8 @@ int main(int argc, char * argv[])
         const char * out_folder_char =out_folder.c_str();
         const char * job_prefix_char = job_prefix.c_str();
         vectord2d inter = readInterFourCols(inter_file_char,weights,chrom_char,chrmfile_char,start,end,resolution);
-        getInterNum(inter, n_samples, false, 1);
-        unsigned n_samples_per_run=n_samples/n_runs;
+        getInterNum(inter, n_samples_per_run, false, 1);
+        
     
         clock_t begin,finish;
     
