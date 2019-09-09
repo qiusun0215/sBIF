@@ -2,14 +2,14 @@
 sequential Bayesian Inference framework
 A method to construct 3D chromatin structures of single cells from Hi-C data.
 
-Compile: 
+## Compile: 
 g++ --std=c++11 -fopenmp check.cpp loading.cpp dumping.cpp optimization.cpp parsingargs.cpp main.cpp -o sbif
 
-Usage: 
+## Usage: 
 sbif -i inter_file -o out_folder -c chrom -f chrom_sizes -s start -e end -k ki_dist -n num_samples
 
-Parameters: shortterm | longterm: description  \n
-    i | inter_file:  Hi-C file with 4 columes, chrm|start|end|weight \n
+## Parameters: shortterm | longterm: description  
+    i | inter_file:  Hi-C file with 4 columes, chrm|start|end|weight 
     c | chrom: chromosome
     f | chrmfile: file of chromosome sizes
     s | start: start position
