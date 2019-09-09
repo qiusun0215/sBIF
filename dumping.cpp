@@ -33,7 +33,7 @@ void dumpSingleChain(my_chain &chain, const char *out_folder, unsigned rep_id, c
         fprintf(output,"%f\t%f\t%f\n", node.x,node.y,node.z);
     }
     fclose(output);
-    cout<<"Writing sample "<<rep_id<<" ..."<<endl;
+    //cout<<"Writing sample "<<rep_id<<" ..."<<endl;
 }
 
 void dumpEnsemble(my_ensemble &chains, const char *out_folder, const char *job_prefix)
@@ -53,6 +53,6 @@ void dumpEnsemble(my_ensemble &chains, const char *out_folder, const char *job_p
             fprintf(output,"%f\t%f\t%f\n", node.x,node.y,node.z);
         }
         fclose(output);
-        cout<<"Writing sample "<<i<<" ..."<<endl;
+        //cout<<"Writing sample "<<i<<" ..."<<endl;
     }
 }
