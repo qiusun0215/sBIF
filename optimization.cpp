@@ -146,7 +146,7 @@ my_ensemble SBIF(vectord2d &inter, vectord2d &weights, unsigned n_samples, unsig
         init_idx=pick_node(eng);
 		head=init_idx;
         tail=init_idx+1;
-        cout<<"Intial Node: "<<init_idx<<endl;
+        //cout<<"Intial Node: "<<init_idx<<endl;
 
         for (unsigned i=0; i<n_nodes-1; ++i)
         {
