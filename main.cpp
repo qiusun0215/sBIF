@@ -76,6 +76,7 @@ int main(int argc, char * argv[])
         unsigned threads=10;
         string job_prefix="test";
         
+        
         map<std::string, std::vector<std::string> >::iterator it = result.begin();
         for(; it != result.end(); ++it)
         {
@@ -158,6 +159,9 @@ int main(int argc, char * argv[])
         }
         double diam=getDiam(resolution,fiber_density);
         unsigned n_runs=n_samples/n_samples_per_run;
+        string command;
+        command = "mkdir -p " + out_folder;  
+        system(command.c_str());
         cout<< "Parameters: "<<endl;
         cout<< "interaction file :"<< inter_file << endl;
         cout<< "chromosome :"<< chrom << endl;
