@@ -67,7 +67,7 @@ double calcuProb(vectori &select_ligc, unsigned node_idx, unsigned head, unsigne
         if (i==node_idx+1) continue;
         if (i==node_idx-1) continue;
         //p+=pow(select_ligc[i]-inter[node_idx][i],2);
-        p+=log(poisson_pmf(select_ligc[i],inter[node_idx][i]));
+        p+=log(poisson_pmf(select_ligc[i],inter[node_idx][i]))*weights[node_idx][i];
     }
     return p;
 }
@@ -86,7 +86,7 @@ double calcuNewProb(vectori &select_ligc, vectori3d &sim_ligcs, indices &total_v
         if (i==node_idx-1) continue;
         unsigned new_num=select_ligc[i]-sim_ligcs[select_idx[old_select_idx].first][select_idx[old_select_idx].second][i];
         new_num+=sim_ligcs[total_valid_idx[new_valid_idx].first][total_valid_idx[new_valid_idx].second][i];
-        p+=log(poisson_pmf(new_num,inter[node_idx][i]));
+        p+=log(poisson_pmf(new_num,inter[node_idx][i]))*weights[node_idx][i];
         //p+=pow(new_num-inter[node_idx][i],2);
     }
     return p;
@@ -132,7 +132,7 @@ my_ensemble SBIF(vectord2d &inter, vectord2d &weights, unsigned n_samples, unsig
     vectord final_p;
     while (n_trials<max_trials)
     {
-        cout<<"Trial "<<n_trials+1<<" starts!"<<endl;
+        //cout<<"Trial "<<n_trials+1<<" starts!"<<endl;
 
         my_ensemble old_chains(n_samples,my_chain(n_nodes,initi_node));
         my_ensemble new_chains(n_samples,my_chain(n_nodes,initi_node));
@@ -330,7 +330,7 @@ my_ensemble SBIF(vectord2d &inter, vectord2d &weights, unsigned n_samples, unsig
                 else
                     tail=tail+1;
             }
-            cout<<"Node "<<node_idx<<" has been generated!"<<endl;
+            //cout<<"Node "<<node_idx<<" has been generated!"<<endl;
         }
         if (validFlag)
         {
