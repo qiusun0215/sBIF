@@ -1,6 +1,6 @@
 # sBIF
-sequential Bayesian Inference framework
-A method to construct 3D chromatin structures of single cells from Hi-C data.
+sequential Bayesian Inference framework: 
+A method to reconstruct 3D chromatin structures of single cells from Hi-C data.
 
 ## Compile: 
 g++ --std=c++11 -fopenmp check.cpp loading.cpp dumping.cpp optimization.cpp parsingargs.cpp main.cpp -o sbif
