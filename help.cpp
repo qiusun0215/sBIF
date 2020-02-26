@@ -12,11 +12,11 @@ void printHelp()
     cout << "Options: <short | long>" << endl;
 
     cout << "     i  | inter     REQUIRED, Hi-C interaction file in a Tab delimited format, " << endl;
-    cout << "                   contains 5 columns: chrm, startpos, endpos, freq and weight" << endl;
+    cout << "                    contains 5 columns: chrm, startpos, endpos, freq and weight" << endl;
     cout << "     c  | chrom     REQUIRED, chromosome name, must be consistent with the names" <<endl;
-    cout << "                   in chromosome length file" << endl;
+    cout << "                    in chromosome length file" << endl;
     cout << "     l  | chrlens   REQUIRED, chromosome length file, can be downloaded via fetchChromSizes" << endl;
-    cout << "                   contains 2 columns: chrm and length" << endl;
+    cout << "                    contains 2 columns: chrm and length" << endl;
     cout << "     s  | start     REQUIRED, start position" << endl;
     cout << "     e  | end       REQUIRED, end position" << endl;
     cout << "     o  | out       REQUIRED, output folder" << endl;
@@ -26,7 +26,7 @@ void printHelp()
     cout << "     nr | nruns     number of samples per run, default: 100" << endl;
     cout << "     ni | niter     number of iterations, default: 100" << endl;
     cout << "     n  | nsphere   number of sphere points chosen as the candidates for the next node" << endl;
-    cout << "                   default: 50" << endl;
+    cout << "                    default: 50" << endl;
     cout << "     k  | kidist    knock-in distance threshold (nm), default: 80" << endl;
     cout << "     m  | maxtrial  maximum number of trials, default: 100" << endl;
     cout << "     j  | jobpre    job prefix, default: test" << endl;
