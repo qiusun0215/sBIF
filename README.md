@@ -11,7 +11,7 @@ make
 ```Bash
 Usage : sBIF [options] -i <inter_file> -c <chrm> -l <chrmLens> -s <start> -e <end> -o <out_folder>
 ```
-### Options: <shortterm | longterm> 
+## Options: <shortterm | longterm> 
 
         i  | inter     REQUIRED, Hi-C interaction file in a Tab delimited format, " << endl;
                        contains 5 columns: chrm, startpos, endpos, freq and weight" << endl;
