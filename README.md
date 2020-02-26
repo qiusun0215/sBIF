@@ -1,27 +1,36 @@
 # sBIF
 sequential Bayesian Inference framework: 
-A method to reconstruct 3D chromatin structures of single cells from Hi-C data.
+A method to reconstruct 3D chromatin structures of modeled single cells from Hi-C data.
 
 ## Compile: 
-g++ --std=c++11 -fopenmp check.cpp loading.cpp dumping.cpp optimization.cpp parsingargs.cpp main.cpp -o sbif
-
+```Bash
+cmake .
+make
+```
 ## Usage: 
-sbif -i inter_file -o out_folder -c chrom -f chrom_sizes -s start -e end -k ki_dist -n num_samples
+```Bash
+Usage : sBIF [options] -i <inter_file> -c <chrm> -l <chrmLens> -s <start> -e <end> -o <out_folder>
+```
+### Options: <shortterm | longterm> 
 
-### Parameters: shortterm | longterm: description  
-    i | inter_file:  Hi-C file with 4 columes, chrm|start|end|weight 
-    c | chrom: chromosome
-    f | chrmfile: file of chromosome sizes
-    s | start: start position
-    e | end: end position
-    o | out_folder: output folder
-    r | resolution: resolution
-    d | fiber_density: fiber density for chromatin 11nm fiber 
-    n | n_samples: number of samples
-    l | n_samples_per_run: number of samples generated for each single run
-    m | n_sphere: number of sphere points chosen as the candidates for the next node
-    k | ki_dist: knock in distance
-    t | max_trials: maximum number of trials
-    g | n_iter: number of iteractions
-    j | job_prefix: job prefix 
-    p | threads: number of threads 
+        i  | inter     REQUIRED, Hi-C interaction file in a Tab delimited format, " << endl;
+                       contains 5 columns: chrm, startpos, endpos, freq and weight" << endl;
+        c  | chrom     REQUIRED, chromosome name, must be consistent with the names" <<endl;
+                       in chromosome length file" << endl;
+        l  | chrlens   REQUIRED, chromosome length file, can be downloaded via fetchChromSizes" << endl;
+                       contains 2 columns: chrm and length" << endl;
+        s  | start     REQUIRED, start position" << endl;
+        e  | end       REQUIRED, end position" << endl;
+        o  | out       REQUIRED, output folder" << endl;
+        r  | res       resolution, default: 2000" << endl;
+        d  | fibdens   fiber density, default: 0.2368" << endl;
+        ns | nsamp     total number of samples, default: 50000" << endl;
+        nr | nruns     number of samples per run, default: 100" << endl;
+        ni | niter     number of iterations, default: 100" << endl;
+        n  | nsphere   number of sphere points chosen as the candidates for the next node" << endl;
+                       default: 50" << endl;
+        k  | kidist    knock-in distance threshold (nm), default: 80" << endl;
+        m  | maxtrial  maximum number of trials, default: 100" << endl;
+        j  | jobpre    job prefix, default: test" << endl;
+        p  | threads   number of threads, default: 1" << endl;
+        h  | help      print the available options" << endl;
