@@ -3,12 +3,13 @@
 #include <cstdio>
 #include <map>
 #include <ctime>
+#include <stdexcept>
 #include "loading.h"
 
 map<const string, unsigned int> getChrmLens(const char* chrmfile)
 {
     map<const string, unsigned int> all_chrm_lens;
-    FILE *file = fopen(chrmfile, "r");
+    FILE* file = fopen(chrmfile, "r");
     if (file == NULL)
     {
         fprintf(stderr, "The inputfile can not be opened!\n");
@@ -33,19 +34,20 @@ map<const string, unsigned int> getChrmLens(const char* chrmfile)
 }
 
 
-vectord2d readInterFourCols(const char * inter_file, vectord2d &weights,  const char *chrom,
-                           const char *chrmfile, unsigned start, unsigned end,  unsigned resolution)
+vectord2d readInterFiveCols(const char* inter_file, vectord2d& weights, const char* chrom,
+    const char* chrmfile, unsigned start, unsigned end, unsigned resolution)
 {
     map<const string, unsigned int> all_chrm_lens = getChrmLens(chrmfile);
     unsigned chrm_size = all_chrm_lens[chrom];
-    if (chrm_size <= 0) throw runtime_error("The chromosome does not exist!");
+    std::logic_error error("The chromosome does not exist!");
+    if (chrm_size <= 0) throw std::exception(error);
     assert((start >= 0) && (start < chrm_size));
     assert((end > 0) && (end <= chrm_size));
     unsigned region_size = end - start;
     const unsigned bin_size = ((region_size % resolution == 0) ? (region_size / resolution) : (region_size / resolution + 1));
     const unsigned bin_start = start / resolution;
-    vectord2d inter(bin_size,vectord(bin_size));
-    FILE *file = fopen(inter_file, "r");
+    vectord2d inter(bin_size, vectord(bin_size));
+    FILE* file = fopen(inter_file, "r");
     if (file == NULL)
     {
         fprintf(stderr, "The interaction file can not be opened!\n");
@@ -60,20 +62,20 @@ vectord2d readInterFourCols(const char * inter_file, vectord2d &weights,  const 
     while (1)
     {
         if (fgets(line, MAX_CHAR, file) == NULL) break;
-        int num = sscanf(line, "%s %u %u %lf %lf",chrm_name, &bin1, &bin2, &freq, &weight);
+        int num = sscanf(line, "%s %u %u %lf %lf", chrm_name, &bin1, &bin2, &freq, &weight);
         if (num != 5)
         {
-            fprintf(stderr, "The interaction file should have four columns(chrm_name bin1 bin2 freq weight) !\n");
+            fprintf(stderr, "The interaction file should have five columns(chrm_name bin1 bin2 freq weight) !\n");
             exit(1);
         }
         if (strcmp(chrm_name, chrom) == 0)
         {
             bin1 = bin1 / resolution - bin_start;
             bin2 = bin2 / resolution - bin_start;
-            if ((bin1<0)||(bin2<0)) continue;
-            if ((bin1>=bin_size)||(bin2>=bin_size)) continue;
-            if (weight<0) continue;
-	        inter[bin1][bin2] = freq;
+            if ((bin1 < 0) || (bin2 < 0)) continue;
+            if ((bin1 >= bin_size) || (bin2 >= bin_size)) continue;
+            if (weight < 0) continue;
+            inter[bin1][bin2] = freq;
             inter[bin2][bin1] = freq;
             weights[bin1][bin2] = weight;
             weights[bin2][bin1] = weight;
@@ -84,8 +86,8 @@ vectord2d readInterFourCols(const char * inter_file, vectord2d &weights,  const 
 }
 
 
-void getInterNum(vectord2d &inter, unsigned n_samples, bool scaling, const unsigned scale_diagonal)
-{   
+void getInterNum(vectord2d& inter, unsigned n_samples, bool scaling, const unsigned scale_diagonal)
+{
     if (scaling)
     {
         auto locus_size = inter.size();
@@ -119,21 +121,20 @@ void getInterNum(vectord2d &inter, unsigned n_samples, bool scaling, const unsig
     else
     {
         auto locus_size = inter.size();
-        for (unsigned i=0; i!=locus_size; ++i)
-            for (unsigned j=0; j!=locus_size; ++j)
+        for (unsigned i = 0; i != locus_size; ++i)
+            for (unsigned j = 0; j != locus_size; ++j)
             {
-                if (i==j)
+                if (i == j)
                 {
-                    inter[i][j]=-1;
+                    inter[i][j] = -1;
                     continue;
                 }
-                if (fabs(i-j)==1)
+                if (fabs(i - j) == 1)
                 {
-                    inter[i][j]=-1;
+                    inter[i][j] = -1;
                     continue;
                 }
                 inter[i][j] = round(inter[i][j] * n_samples);
             }
     }
 }
-
