@@ -1,169 +1,169 @@
 #include "parsingargs.h"
 #include <list>
- 
-ParsingArgs::ParsingArgs(){}
- 
-ParsingArgs::~ParsingArgs(){}
- 
-bool ParsingArgs::AddArgType(char shortName, const char * longName, KeyFlag flag)
+
+ParsingArgs::ParsingArgs() {}
+
+ParsingArgs::~ParsingArgs() {}
+
+bool ParsingArgs::AddArgType(const string shortName, const string longName, KeyType type)
 {
-    if(NULL == longName && 0 == shortName)
+    if (longName.empty() && shortName.empty())
     {
         return false;
     }
     Option tmp;
-    tmp.m_longName = longName;
-    tmp.m_shortName = shortName;
-    tmp.m_flag = flag;
-    m_args.push_back(tmp);
+    tmp.longName = longName;
+    tmp.shortName = shortName;
+    tmp.type = type;
+    args.push_back(tmp);
     return true;
 }
- 
-ParsingArgs::KeyFlag ParsingArgs::GetKeyFlag(std::string &key) 
+
+ParsingArgs::KeyType ParsingArgs::GetKeyType(string& key)
 {
-    for(int i=0; i<m_args.size(); ++i)
+    for (int i = 0; i < args.size(); ++i)
     {
-        std::string shortName = "-";
-        std::string longName = "--";
-        shortName += m_args[i].m_shortName;
-        longName += m_args[i].m_longName;
-        if( 0 == key.compare(shortName) ||
-                (0==key.compare(longName))
+        string shortName = "-";
+        string longName = "--";
+        shortName += args[i].shortName;
+        longName += args[i].longName;
+        if (0 == key.compare(shortName) ||
+            (0 == key.compare(longName))
             )
         {
-            RemoveKeyFlag(key);
-            return m_args[i].m_flag;
+            RemoveKeyType(key);
+            return args[i].type;
         }
     }
-    return INVALID_KEY;
+    return INVALID;
 }
- 
-void ParsingArgs::RemoveKeyFlag(std::string & word)
+
+void ParsingArgs::RemoveKeyType(string& word)
 {
-    if(word.size()>=2)
+    if (word.size() >= 2)
     {
-        if(word[1] == '-')
+        if (word[1] == '-')
         {
-            word.erase(1,1);
+            word.erase(1, 1);
         }
-        if(word[0] == '-')
+        if (word[0] == '-')
         {
-            word.erase(0,1);
+            word.erase(0, 1);
         }
     }
 }
 
-bool ParsingArgs::GetWord(std::string & Paras, std::string & word)
+bool ParsingArgs::GetWord(string& Paras, string& word)
 {
-    size_t iNotSpacePos = Paras.find_first_not_of(' ',0);
-    if(iNotSpacePos == std::string::npos)
+    size_t iNotSpacePos = Paras.find_first_not_of(' ', 0);
+    if (iNotSpacePos == string::npos)
     {
         Paras.clear();
         word.clear();
         return true;
     }
     int length = Paras.size();
-    std::list<char> specialChar;
+    list<char> specialChar;
     int islashPos = -1;
-    for(int i=iNotSpacePos; i<length; i++)
+    for (int i = iNotSpacePos; i < length; i++)
     {
-        char cur=Paras[i];
+        char cur = Paras[i];
         bool bOk = false;
-        switch(cur)
+        switch (cur)
         {
-            case ' ':
-                if(specialChar.empty())
+        case ' ':
+            if (specialChar.empty())
+            {
+                if (i != (length - 1))
                 {
-                    if(i!=(length-1))
-                    {
-                        Paras = std::string(Paras, i+1, length-i-1);
-                    }
-                    else
-                    {
-                        Paras.clear();
-                    }
-                    bOk = true;
-                }
-                else
-                {                    
-                    if(specialChar.back() == '\\')
-                    {
-                        specialChar.pop_back();
-                    }
-                    word.append(1,cur);
-                }
-                break;
-            case '"':
-                if(specialChar.empty())
-                {
-                    specialChar.push_back(cur);
-                }
-                else if(specialChar.back() == cur)
-                { 
-                    specialChar.pop_back();
-                }
-                else if(specialChar.back() == '\\')
-                {
-                    word.append(1,cur);
-                    specialChar.pop_back();
+                    Paras = string(Paras, i + 1, length - i - 1);
                 }
                 else
                 {
-                    word.clear();
-                    return false;
-                }
-                break;
-            case '\\':
-                if(specialChar.empty())
-                {
-                    specialChar.push_back(cur);
-                    islashPos = i;
-                }
-                else if(specialChar.back() == '"')
-                {
-                    if(i<(length-1))
-                    {
-                        if('"'==Paras[i+1] || '\\'==Paras[i+1])
-                        {
-                            specialChar.push_back(cur);
-                        }
-                        else
-                        {
-                            word.append(1,cur);
-                        }
-                    }
-                    else
-                    {
-                        word.clear();
-                        return false;
-                    }
-                }
-                else if('\\' == specialChar.back())
-                {
-                     word.append(1,cur);
-                     specialChar.pop_back();
-                }
-                else 
-                {
-                    word.clear();
-                    return false;
-                }
-                break;
-            default:
-                word.append(1,Paras[i]);
-                if(i==(length-1))
-                {
-                    bOk = true;
                     Paras.clear();
                 }
-                break;
+                bOk = true;
+            }
+            else
+            {
+                if (specialChar.back() == '\\')
+                {
+                    specialChar.pop_back();
+                }
+                word.append(1, cur);
+            }
+            break;
+        case '"':
+            if (specialChar.empty())
+            {
+                specialChar.push_back(cur);
+            }
+            else if (specialChar.back() == cur)
+            {
+                specialChar.pop_back();
+            }
+            else if (specialChar.back() == '\\')
+            {
+                word.append(1, cur);
+                specialChar.pop_back();
+            }
+            else
+            {
+                word.clear();
+                return false;
+            }
+            break;
+        case '\\':
+            if (specialChar.empty())
+            {
+                specialChar.push_back(cur);
+                islashPos = i;
+            }
+            else if (specialChar.back() == '"')
+            {
+                if (i < (length - 1))
+                {
+                    if ('"' == Paras[i + 1] || '\\' == Paras[i + 1])
+                    {
+                        specialChar.push_back(cur);
+                    }
+                    else
+                    {
+                        word.append(1, cur);
+                    }
+                }
+                else
+                {
+                    word.clear();
+                    return false;
+                }
+            }
+            else if ('\\' == specialChar.back())
+            {
+                word.append(1, cur);
+                specialChar.pop_back();
+            }
+            else
+            {
+                word.clear();
+                return false;
+            }
+            break;
+        default:
+            word.append(1, Paras[i]);
+            if (i == (length - 1))
+            {
+                bOk = true;
+                Paras.clear();
+            }
+            break;
         }
-        if(bOk) 
+        if (bOk)
         {
             return true;
         }
     }
-    if(specialChar.empty())
+    if (specialChar.empty())
     {
         Paras.clear();
         return true;
@@ -173,90 +173,90 @@ bool ParsingArgs::GetWord(std::string & Paras, std::string & word)
         return false;
     }
 }
- 
-bool ParsingArgs::IsDuplicateKey(const std::string &key, const std::map<std::string, std::vector<std::string> > & result)
+
+bool ParsingArgs::IsDuplicateKey(const string& key, const map<string, vector<string> >& result)
 {
-    if(result.find(key) != result.end())
+    if (result.find(key) != result.end())
     {
-        return true; 
+        return true;
     }
- 
-    for(int i=0; i<m_args.size(); ++i)
+
+    for (int i = 0; i < args.size(); ++i)
     {
-        if( (key.compare(m_args[i].m_longName) == 0 && result.find(std::string(1, m_args[i].m_shortName)) != result.end())
-                || (key.compare(std::string(1, m_args[i].m_shortName)) == 0 && result.find(m_args[i].m_longName) != result.end())
-          )
+        if ((key.compare(args[i].longName) == 0 && result.find(args[i].shortName) != result.end())
+            || (key.compare(args[i].shortName) == 0 && result.find(args[i].longName) != result.end())
+            )
         {
             return true;
         }
     }
     return false;
 }
- 
-int ParsingArgs::Parse(const std::string & Paras, std::map<std::string, std::vector<std::string> > & result, std::string &errPos)
+
+int ParsingArgs::Parse(const string& Paras, map<string, vector<string> >& result, string& errPos)
 {
-    std::string tmpString = Paras;
-    KeyFlag keyFlag = INVALID_KEY; 
-    std::string sKey = ""; 
-    bool bFindValue = false; 
-    while(!tmpString.empty())
+    string tmpString = Paras;
+    KeyType keyType = INVALID;
+    string sKey = "";
+    bool bFindValue = false;
+    while (!tmpString.empty())
     {
-        std::string word = "";
- 
+        string word = "";
+
         bool bRet = GetWord(tmpString, word);
- 
-        if(bRet == false)
+
+        if (bRet == false)
         {
             errPos = tmpString;
             return -4;
         }
         else
         {
-            KeyFlag tmpFlag = GetKeyFlag(word);
-            if(IsDuplicateKey(word, result))
+            KeyType tmpType = GetKeyType(word);
+            if (IsDuplicateKey(word, result))
             {
                 errPos = tmpString;
                 return -5;
             }
-            if(tmpFlag != INVALID_KEY)
+            if (tmpType != INVALID)
             {
-                if(tmpFlag == MUST_VALUE && keyFlag == MUST_VALUE && !bFindValue)
+                if (tmpType == MUST && keyType == MUST && !bFindValue)
                 {
                     errPos = tmpString;
                     return -3;
                 }
-                keyFlag = tmpFlag;
-                std::vector<std::string> tmp;
+                keyType = tmpType;
+                vector<string> tmp;
                 result[word] = tmp;
                 sKey = word;
                 bFindValue = false;
             }
             else
             {
-                switch(keyFlag)
+                switch (keyType)
                 {
-                    case MAYBE_VALUE:
-                    case MUST_VALUE:
-                        {
-                            std::map<std::string, std::vector<std::string> >::iterator it = result.find(sKey);
-                            if(it != result.end())
-                            {
-                                it->second.push_back(word);
-                                bFindValue = true;
-                            }
-                            else
-                            {
-                                errPos = tmpString;
-                                return -1;
-                            }
-                        }
-                        break;
-                    case NO_VALUE:
-                        errPos = tmpString;
-                        return -2; 
-                    default:
+                case MAYBE:
+                case MUST:
+                {
+                    map<string, vector<string> >::iterator it = result.find(sKey);
+                    if (it != result.end())
+                    {
+                        it->second.push_back(word);
+                        bFindValue = true;
+                    }
+                    else
+                    {
                         errPos = tmpString;
                         return -1;
+                    }
+                }
+                break;
+                case NO:
+                    errPos = tmpString;
+                    return -2;
+                default:
+                    errPos = tmpString;
+                    return -1;
                 }
             }
         }
