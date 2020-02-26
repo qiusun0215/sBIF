@@ -3,12 +3,12 @@ A method to reconstruct 3D chromatin structures of modeled single cells from Hi-
 
 ## Compile: 
 ```Bash
-cmake .
-make
+     cmake .
+     make
 ```
 ## Usage: 
 ```Bash
-      sBIF [options] -i <inter_file> -c <chrm> -l <chrmLens> -s <start> -e <end> -o <out_folder>
+     sBIF [options] -i <inter_file> -c <chrm> -l <chrmLens> -s <start> -e <end> -o <out_folder>
 ```
 ## Options: <shortterm | longterm> 
 
