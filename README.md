@@ -1,5 +1,4 @@
-# sBIF
-sequential Bayesian Inference framework: 
+# sequential Bayesian Inference Framework (sBIF)
 A method to reconstruct 3D chromatin structures of modeled single cells from Hi-C data.
 
 ## Compile: 
