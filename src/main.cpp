@@ -1,4 +1,4 @@
-﻿#include <iostream>
+#include <iostream>
 #include <time.h>
 #include "optimization.h"
 #include "dumping.h"
@@ -30,7 +30,7 @@ int main(int argc, char* argv[])
         }
         tmpPara += " ";
     }
-
+    
     map<string, vector<string> > result;
     ParsingArgs pa;
     pa.AddArgType("i", "inter", ParsingArgs::MUST);
@@ -60,6 +60,7 @@ int main(int argc, char* argv[])
     {
         std::cout << "Error: wrong options with flag " << iRet << endl;
         printHelp();
+        return 0;
     }
     else
     {
@@ -80,7 +81,41 @@ int main(int argc, char* argv[])
         unsigned threads = 1;
         string job_prefix = "test";
 
-
+        if ((result.find("h") != result.end()) && (result.find("help") != result.end()))
+        {
+            printHelp();
+            return 0;
+        }
+        if ((result.find("i") == result.end()) && (result.find("inter") == result.end()))
+        {
+            cout << "Error: missing required parameters..." << endl;
+            printHelp();
+            return 0;
+        }
+        if ((result.find("c") == result.end()) && (result.find("chrom") == result.end()))
+        {
+            cout << "Error: missing required parameters..." << endl;
+            printHelp();
+            return 0;
+        }
+        if ((result.find("l") == result.end()) && (result.find("chrlens") == result.end()))
+        {
+            cout << "Error: missing required parameters..." << endl;
+            printHelp();
+            return 0;
+        }
+        if ((result.find("s") == result.end()) && (result.find("start") == result.end()))
+        {
+            cout << "Error: missing required parameters..." << endl;
+            printHelp();
+            return 0;
+        }
+        if ((result.find("e") == result.end()) && (result.find("end") == result.end()))
+        {
+            cout << "Error: missing required parameters..." << endl;
+            printHelp();
+            return 0;
+        }
         map<std::string, std::vector<std::string> >::iterator it = result.begin();
         for (; it != result.end(); ++it)
         {
@@ -160,10 +195,10 @@ int main(int argc, char* argv[])
             }
             if ((it->first.compare("j") == 0) || (it->first.compare("jobpre") == 0))
                 job_prefix = it->second[0];
-            if ((it->first.compare("h")) == 0 || (it->first.compare("help") == 0))
-            {
-                printHelp();
-            }
+            //if ((it->first.compare("h")) == 0 || (it->first.compare("help") == 0))
+            //{
+            //    printHelp();
+            //}
         }
         double diam = getDiam(resolution, fiber_density);
         unsigned n_runs = n_samples / n_samples_per_run;
