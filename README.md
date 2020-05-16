@@ -55,4 +55,4 @@ sBIF takes the Hi-C interaction file as input, it can be used to construct a chr
      cd example
      ./drosChr2L.sh
 ```
-This example code will generate 500,000 chromatin structures in the region of chr2L 11,000,000-12,000,000 for Drosophila cell line S2R+. The output files are in tab-delimited plain format with three columns, representing x, y and z coordinates of each chain.
+This example code will generate an ensemble of 500,000 chromatin structures in the region of chr2L 11,000,000-12,000,000 for Drosophila cell line S2R+. The output files are in tab-delimited plain format with three columns, representing x, y and z coordinates of each polymer chain.
