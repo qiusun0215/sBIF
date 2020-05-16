@@ -2,6 +2,12 @@
 
 A method to reconstruct 3D chromatin structures of modeled single cells from Hi-C data.
 
+## Dependencies: 
+
+```Bash
+     This script has been tested on Linux system with CMake (version>=2.8.12) installed. All C++ standard template libraries are supposed to be installed already.
+```
+
 ## Compile: 
 
 ```Bash
