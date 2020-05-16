@@ -4,9 +4,9 @@ A method to reconstruct 3D chromatin structures of modeled single cells from Hi-
 
 ## Dependencies: 
 
-```Bash
-     This script has been tested on Linux system with CMake (version>=2.8.12) installed. All C++ standard template libraries are supposed to be installed already.
-```
+
+    This script has been tested on Linux system with CMake (version>=2.8.12) installed. All C++ standard template libraries are supposed to be installed already.
+
 
 ## Compile: 
 
@@ -21,7 +21,7 @@ A method to reconstruct 3D chromatin structures of modeled single cells from Hi-
      sBIF [options] -i <inter_file> -c <chrm> -l <chrmLens> -s <start> -e <end> -o <out_folder>
 ```
 
-sBIF takes the Hi-C interaction file as input, it can be used to construct a chromatin polymer ensemble that best describe the Hi-C data. In each output file of Tab delimited format, there are three columns that representing the x, y and z coordinates of nodes in the simulated chromatin polymer chain.
+    sBIF takes the Hi-C interaction file as input, it can be used to construct a chromatin polymer ensemble that best describe the Hi-C data. In each output file of Tab delimited format, there are three columns that representing the x, y and z coordinates of nodes in the simulated chromatin polymer chain.
 
 ## Options: <shortterm | longterm> 
 
