@@ -29,7 +29,7 @@ sBIF takes the Hi-C interaction file as input, it can be used to construct a chr
         -i  | --inter     REQUIRED, Hi-C interaction file in a Tab delimited format, 
                           contains 5 columns: chrm, startpos, endpos, freq and weight
         -c  | --chrom     REQUIRED, chromosome name, must be consistent with the names
-                          in chromosome length file" << endl;
+                          in chromosome length file
         -l  | --chrlens   REQUIRED, chromosome length file, can be downloaded via fetchChromSizes
                           contains 2 columns: chrm and length
         -s  | --start     REQUIRED, start position
