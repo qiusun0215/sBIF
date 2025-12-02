@@ -21,7 +21,7 @@ This script has been tested on Linux system with CMake (version>=2.8.12) install
      sBIF [options] -i <inter_file> -c <chrm> -l <chrmLens> -s <start> -e <end> -o <out_folder>
 ```
 
-sBIF takes the Hi-C interaction file as input, it can be used to construct a chromatin polymer ensemble that best describe the Hi-C data. In each output file of Tab delimited format, there are three columns that representing the x, y and z coordinates of nodes in the simulated chromatin polymer chain.
+sBIF takes the Hi-C interaction file as input, it can be used to construct a chromatin polymer ensemble that best describes the Hi-C data. In each output file of Tab delimited format, there are three columns that representing the x, y and z coordinates of nodes in the simulated chromatin polymer chain.
 
 
 ## Options: <shortterm | longterm> 
