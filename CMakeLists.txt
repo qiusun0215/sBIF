@@ -1,9 +1,9 @@
-###
+#####
 cmake_minimum_required (VERSION 3.5)
 
 project(sBIF)
 
-###Adding sources
+#####Adding sources
 aux_source_directory(${PROJECT_SOURCE_DIR}/src SRC_LIST)
 
 include_directories(${PROJECT_SOURCE_DIR}/src)
@@ -17,7 +17,7 @@ else()
     -D_CRT_SECURE_NO_WARNINGS -D_WINSOCK_DEPRECATED_NO_WARNINGS)
 endif()
 
-###Running openmp
+#####Running openmp
 FIND_PACKAGE( OpenMP REQUIRED)
 if(OPENMP_FOUND)
 message("PENMP FOUND")
